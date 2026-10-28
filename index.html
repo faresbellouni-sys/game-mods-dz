@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAME MODS DZ</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090611;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:30px 15px;background:linear-gradient(135deg,#170b2e,#421080);border-bottom:2px solid #b44aff}
+h1{color:#d7a1ff;text-shadow:0 0 15px #a020f0;margin:0 0 10px}
+header p{color:#e6d7f7}
+main{max-width:900px;margin:auto;padding:18px}
+input{width:100%;padding:14px;border:1px solid #a64dff;border-radius:12px;background:#160d24;color:white;font-size:16px;margin-bottom:20px}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+.game{background:#171020;border:1px solid #7030a0;border-radius:14px;padding:18px 12px;text-align:center;box-shadow:0 0 10px #3d1260}
+.cover{font-size:42px;margin:8px}
+.game h2{font-size:18px}
+.game p{font-size:13px;color:#d2c4e2;min-height:32px}
+a{display:block;text-decoration:none;text-align:center;background:#8d32df;color:white;padding:11px;border-radius:9px;font-weight:bold}
+.notice{margin-top:25px;padding:15px;border:1px solid #63328a;border-radius:12px;color:#d8c9e9;font-size:13px;line-height:1.8}
+footer{text-align:center;padding:25px;color:#a89bb9}
+</style>
+</head>
+<body>
+<header>
+<h1>🎮 GAME MODS DZ</h1>
+<p>عالم الألعاب، التحديثات والأدلة في مكان واحد</p>
+</header>
+<main>
+<input id="search" placeholder="🔎 قلب على لعبة..." oninput="filterGames()">
+<div class="games" id="games">
+<article class="game" data-name="pubg ببجي">
+<div class="cover">🎯</div><h2>PUBG Mobile</h2>
+<p>أخبار وتحديثات وأدلة اللعبة</p>
+<a href="https://www.pubgmobile.com/" target="_blank" rel="noopener">الموقع الرسمي</a>
+</article>
+<article class="game" data-name="minecraft ماينكرافت">
+<div class="cover">🧱</div><h2>Minecraft</h2>
+<p>اكتشف عالم البناء والمغامرة</p>
+<a href="https://www.minecraft.net/" target="_blank" rel="noopener">الموقع الرسمي</a>
+</article>
+<article class="game" data-name="gta grand theft auto">
+<div class="cover">🚘</div><h2>GTA V</h2>
+<p>معلومات وأخبار اللعبة</p>
+<a href="https://www.rockstargames.com/" target="_blank" rel="noopener">Rockstar Games</a>
+</article>
+<article class="game" data-name="roblox روبلوكس">
+<div class="cover">🕹️</div><h2>Roblox</h2>
+<p>ألعاب وتجارب متنوعة</p>
+<a href="https://www.roblox.com/" target="_blank" rel="noopener">الموقع الرسمي</a>
+</article>
+<article class="game" data-name="efootball كرة القدم">
+<div class="cover">⚽</div><h2>eFootball</h2>
+<p>أخبار كرة القدم وتحديثات اللعبة</p>
+<a href="https://www.konami.com/efootball/" target="_blank" rel="noopener">الموقع الرسمي</a>
+</article>
+<article class="game" data-name="cs2 counter strike">
+<div class="cover">💥</div><h2>Counter-Strike 2</h2>
+<p>أخبار وتفاصيل اللعبة</p>
+<a href="https://www.counter-strike.net/" target="_blank" rel="noopener">الموقع الرسمي</a>
+</article>
+</div>
+<div class="notice">
+<strong>ملاحظة:</strong> هذا الموقع يقدم معلومات وروابط رسمية للألعاب. تحقق دائمًا من مصدر الملفات قبل تنزيلها، وتجنب الملفات المجهولة التي قد تضر بجهازك أو بحسابك.
+</div>
+</main>
+<footer>© 2026 GAME MODS DZ — جميع الحقوق محفوظة</footer>
+<script>
+function filterGames(){
+ const q=document.getElementById('search').value.toLowerCase().trim();
+ document.querySelectorAll('.game').forEach(game=>{
+  game.style.display=game.dataset.name.toLowerCase().includes(q) || game.innerText.toLowerCase().includes(q) ? '' : 'none';
+ });
+}
+</script>
+</body>
+</html>
