@@ -5,274 +5,339 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GAME MODS DZ</title>
 <style>
-:root{--bg:#080812;--panel:#121225;--purple:#8b35ff;--blue:#176bff;--text:#f5f3ff;--muted:#b4b2ce}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{padding:22px 16px;text-align:center;background:#101020;border-bottom:1px solid #642bff}
-h1{margin:0;color:#a66bff;font-size:30px}
-header p{color:var(--muted)}
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:12px}
-button,a.btn{border:0;border-radius:9px;padding:11px 15px;background:linear-gradient(110deg,#6422e8,#176bff);color:white;cursor:pointer;text-decoration:none}
-main{max-width:1100px;margin:auto;padding:16px}
-input,textarea{width:100%;padding:12px;margin:6px 0 12px;border-radius:8px;border:1px solid #343456;background:#0d0d1b;color:white}
-#search{margin-top:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
-.card,.panel{background:var(--panel);border:1px solid #30234c;border-radius:14px;padding:16px;overflow-wrap:anywhere}
-.card img{width:100%;height:145px;object-fit:cover;border-radius:9px;background:#202035}
-.card h3{color:#b98aff}
-.card p{color:var(--muted);line-height:1.6}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.secondary{background:#292943}
-.danger{background:#b42343}
-#admin{display:none;margin-top:28px}
-.small{color:var(--muted);font-size:13px}
-footer{text-align:center;padding:28px;color:var(--muted)}
+body{margin:0;background:#080812;color:#f5f3ff;font-family:Arial,sans-serif}
+header{text-align:center;padding:25px 12px;background:#111124;border-bottom:2px solid #8b35ff}
+h1{color:#b783ff;margin:0;font-size:30px}
+p{line-height:1.6}
+button,.btn{border:0;border-radius:9px;padding:12px 16px;background:linear-gradient(110deg,#7628ef,#176bff);color:white;cursor:pointer;text-decoration:none;display:inline-block;margin:4px}
+button:active{opacity:.8}
+main{max-width:1050px;margin:auto;padding:16px}
+input,textarea{width:100%;padding:12px;margin:7px 0 14px;border-radius:8px;border:1px solid #484064;background:#111121;color:white}
+.panel,.card{background:#131326;border:1px solid #3d285c;border-radius:14px;padding:16px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:9px}
+.muted{color:#b8b4cc;font-size:14px}
+#loginPanel,#adminPanel{display:none}
+footer{text-align:center;padding:25px;color:#b8b4cc}
 </style>
 </head>
 <body>
 <header>
-  <h1>🎮 GAME MODS DZ</h1>
-  <p>مودات الألعاب • ألعاب • مجتمع اللاعبين</p>
-  <nav>
-    <a class="btn" href="#games">الألعاب</a>
-    <button onclick="showLogin()">دخول المدير</button>
-  </nav>
+<h1>🎮 GAME MODS DZ</h1>
+<p>الألعاب والمودات — اكتشف ألعابك المفضلة</p>
+<button id="gamesButton">🎮 الألعاب</button>
+<button id="loginButton">🔐 دخول المدير</button>
 </header>
 
 <main>
-  <h2 id="games">اكتشف الألعاب 🎯</h2>
-  <input id="search" placeholder="🔎 ابحث عن لعبة..." oninput="filterGames()">
-  <p id="status" class="small">جاري تحميل الألعاب...</p>
-  <section id="gameList" class="grid"></section>
+<section id="gamesSection">
+<h2>اكتشف الألعاب</h2>
+<input id="search" placeholder="🔎 ابحث عن لعبة...">
+<p id="publicStatus" class="muted">جاري التحميل...</p>
+<div id="gamesList" class="grid"></div>
+</section>
 
-  <section id="login" class="panel" style="display:none;margin-top:28px">
-    <h2>🔐 دخول المدير</h2>
-    <form id="loginForm">
-      <label>البريد الإلكتروني</label>
-      <input id="email" type="email" required autocomplete="username">
-      <label>كلمة السر</label>
-      <input id="password" type="password" required autocomplete="current-password">
-      <button type="submit">تسجيل الدخول</button>
-      <button type="button" class="secondary" onclick="hideLogin()">إلغاء</button>
-    </form>
-    <p id="loginStatus" class="small"></p>
-  </section>
+<section id="loginPanel" class="panel">
+<h2>🔐 تسجيل دخول المدير</h2>
+<form id="loginForm">
+<label for="email">البريد الإلكتروني</label>
+<input id="email" type="email" required autocomplete="username">
+<label for="password">كلمة السر</label>
+<input id="password" type="password" required autocomplete="current-password">
+<button type="submit">تسجيل الدخول</button>
+<button type="button" id="closeLogin">إغلاق</button>
+</form>
+<p id="loginStatus" class="muted"></p>
+</section>
 
-  <section id="admin" class="panel">
-    <h2>⚙️ لوحة الإدارة</h2>
-    <p class="small">الألعاب اللي تزيدها هنا تتحفظ في قاعدة بيانات Supabase.</p>
-    <form id="gameForm">
-      <input id="gameName" placeholder="اسم اللعبة" required>
-      <textarea id="gameDescription" placeholder="وصف اللعبة"></textarea>
-      <input id="gameImage" type="url" placeholder="رابط صورة اللعبة">
-      <input id="gameUrl" type="url" placeholder="رابط اللعبة أو الملف">
-      <div class="actions">
-        <button type="submit" id="saveButton">إضافة اللعبة</button>
-        <button type="button" class="secondary" onclick="resetForm()">إلغاء التعديل</button>
-        <button type="button" class="danger" onclick="logout()">خروج</button>
-      </div>
-    </form>
-    <h3>الألعاب المحفوظة</h3>
-    <div id="adminList"></div>
-    <p id="adminStatus" class="small"></p>
-  </section>
+<section id="adminPanel" class="panel">
+<h2>⚙️ لوحة الإدارة</h2>
+<p class="muted">أضف الألعاب أو عدّل معلوماتها.</p>
+<form id="gameForm">
+<label for="gameName">اسم اللعبة</label>
+<input id="gameName" required placeholder="اسم اللعبة">
+<label for="gameDescription">الوصف</label>
+<textarea id="gameDescription" placeholder="وصف مختصر"></textarea>
+<label for="gameImage">رابط الصورة</label>
+<input id="gameImage" type="url" placeholder="https://...">
+<label for="gameUrl">رابط اللعبة</label>
+<input id="gameUrl" type="url" placeholder="https://...">
+<button id="saveGame" type="submit">إضافة اللعبة</button>
+<button id="cancelEdit" type="button">إلغاء التعديل</button>
+<button id="logoutButton" type="button">تسجيل الخروج</button>
+</form>
+<p id="adminStatus" class="muted"></p>
+<h3>الألعاب المحفوظة</h3>
+<div id="adminGames"></div>
+</section>
 </main>
 
-<footer>GAME MODS DZ © 2026 — موقع ألعاب ومودات</footer>
+<footer>GAME MODS DZ © 2026</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+"use strict";
+
+/* استعمل مفتاح Publishable فقط */
 const SUPABASE_URL = "https://tephetndomaildpphbez.supabase.co";
 const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
+const $ = id => document.getElementById(id);
 let db = null;
 let games = [];
 let editingId = null;
 let isAdmin = false;
 
-const $ = id => document.getElementById(id);
+function message(id, text) {
+  $(id).textContent = text;
+}
 
 function showLogin() {
-  $("login").style.display = "block";
-  $("login").scrollIntoView({behavior:"smooth"});
+  $("loginPanel").style.display = "block";
+  $("adminPanel").style.display = "none";
+  $("loginPanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
-function hideLogin() {
-  $("login").style.display = "none";
+
+function closeLogin() {
+  $("loginPanel").style.display = "none";
 }
-function safeText(value) {
+
+$("loginButton").addEventListener("click", showLogin);
+$("closeLogin").addEventListener("click", closeLogin);
+$("gamesButton").addEventListener("click", () => {
+  $("gamesSection").scrollIntoView({behavior:"smooth"});
+});
+
+function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
-function safeUrl(value) {
+
+function validURL(value) {
   try {
     const u = new URL(value);
-    return ["http:","https:"].includes(u.protocol) ? u.href : "";
-  } catch { return ""; }
-}
-
-async function loadGames() {
-  $("status").textContent = "جاري تحميل الألعاب...";
-  if (!db) {
-    $("status").textContent = "أضف مفتاح Publishable في الكود لربط قاعدة البيانات.";
-    return;
+    return u.protocol === "https:" || u.protocol === "http:" ? u.href : "";
+  } catch {
+    return "";
   }
-  const {data,error} = await db.from("games")
-    .select("id,name,description,image_url,game_url")
-    .order("created_at",{ascending:false});
-  if(error) {
-    $("status").textContent = "تعذّر تحميل الألعاب. راجع إعدادات Supabase.";
-    return;
-  }
-  games = data || [];
-  renderGames();
-  renderAdminGames();
-  $("status").textContent = games.length
-    ? `عدد الألعاب: ${games.length}`
-    : "مازال ما كاين حتى لعبة في قاعدة البيانات.";
 }
 
 function renderGames() {
   const term = $("search").value.trim().toLowerCase();
-  const shown = games.filter(g =>
-    (g.name || "").toLowerCase().includes(term) ||
-    (g.description || "").toLowerCase().includes(term)
+  const filtered = games.filter(g =>
+    String(g.name || "").toLowerCase().includes(term) ||
+    String(g.description || "").toLowerCase().includes(term)
   );
-  $("gameList").innerHTML = shown.map(g => {
-    const img = safeUrl(g.image_url);
-    const link = safeUrl(g.game_url);
+
+  $("gamesList").innerHTML = filtered.map(g => {
+    const image = validURL(g.image_url);
+    const link = validURL(g.game_url);
     return `<article class="card">
-      ${img ? `<img src="${safeText(img)}" alt="${safeText(g.name)}" loading="lazy">` : ""}
-      <h3>${safeText(g.name)}</h3>
-      <p>${safeText(g.description)}</p>
-      ${link ? `<a class="btn" href="${safeText(link)}" target="_blank" rel="noopener noreferrer">فتح اللعبة</a>` : ""}
+      ${image ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(g.name)}" loading="lazy">` : ""}
+      <h3>${escapeHTML(g.name)}</h3>
+      <p>${escapeHTML(g.description)}</p>
+      ${link ? `<a class="btn" href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">فتح اللعبة</a>` : ""}
     </article>`;
   }).join("");
-}
-function filterGames(){renderGames();}
 
-function renderAdminGames() {
-  if (!isAdmin) return;
-  $("adminList").innerHTML = games.map(g => `
-    <div class="card" style="margin:10px 0">
-      <strong>${safeText(g.name)}</strong>
-      <div class="actions" style="margin-top:10px">
-        <button class="secondary" onclick="editGame(${Number(g.id)})">تعديل</button>
-        <button class="danger" onclick="deleteGame(${Number(g.id)})">حذف</button>
-      </div>
-    </div>`).join("");
+  if (!filtered.length) {
+    $("gamesList").innerHTML = '<p class="muted">ما لقيناش ألعاب مطابقة للبحث.</p>';
+  }
+}
+
+$("search").addEventListener("input", renderGames);
+
+async function loadGames() {
+  if (!db) return;
+  const {data,error} = await db.from("games")
+    .select("id,name,description,image_url,game_url")
+    .order("created_at",{ascending:false});
+
+  if (error) {
+    message("publicStatus","تعذّر تحميل الألعاب. راجع إعدادات Supabase.");
+    return;
+  }
+
+  games = data || [];
+  renderGames();
+  renderAdminGames();
+  message("publicStatus","عدد الألعاب: " + games.length);
 }
 
 async function checkAdmin() {
-  const {data:{user}} = await db.auth.getUser();
-  if (!user) {
+  if (!db) return;
+
+  const {data:{user},error:userError} = await db.auth.getUser();
+  if (userError || !user) {
     isAdmin = false;
-    $("admin").style.display = "none";
+    $("adminPanel").style.display = "none";
     return;
   }
+
   const {data,error} = await db.rpc("is_admin");
   isAdmin = !error && data === true;
-  $("admin").style.display = isAdmin ? "block" : "none";
-  if (!isAdmin) $("loginStatus").textContent =
-    "هذا الحساب ما عندوش صلاحيات المدير.";
-  else {
-    hideLogin();
-    $("loginStatus").textContent = "";
+
+  $("adminPanel").style.display = isAdmin ? "block" : "none";
+
+  if (isAdmin) {
+    closeLogin();
+    message("loginStatus","");
     renderAdminGames();
+  } else {
+    message("loginStatus","الحساب هذا ما عندوش صلاحيات المدير.");
   }
 }
 
-$("loginForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  if(!db) return;
-  $("loginStatus").textContent = "جاري تسجيل الدخول...";
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!db) {
+    message("loginStatus","الاتصال بـ Supabase غير جاهز.");
+    return;
+  }
+
+  message("loginStatus","جاري تسجيل الدخول...");
+
   const {error} = await db.auth.signInWithPassword({
     email:$("email").value.trim(),
     password:$("password").value
   });
-  if(error) {
-    $("loginStatus").textContent = "فشل الدخول؛ تأكد من المعلومات.";
+
+  if (error) {
+    message("loginStatus","فشل الدخول. تأكد من بيانات حسابك.");
     return;
   }
+
   await checkAdmin();
-  if(isAdmin) $("loginStatus").textContent = "تم تسجيل الدخول.";
+
+  if (isAdmin) {
+    message("adminStatus","تم تسجيل الدخول بنجاح.");
+    await loadGames();
+  }
 });
 
-$("gameForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  if(!isAdmin || !db) return;
+function renderAdminGames() {
+  if (!isAdmin) return;
+
+  $("adminGames").innerHTML = games.map(g => `
+    <article class="card">
+      <strong>${escapeHTML(g.name)}</strong>
+      <p class="muted">${escapeHTML(g.description)}</p>
+      <button type="button" data-edit="${Number(g.id)}">تعديل</button>
+      <button type="button" class="danger" data-delete="${Number(g.id)}">حذف</button>
+    </article>
+  `).join("");
+
+  $("adminGames").querySelectorAll("[data-edit]").forEach(button => {
+    button.addEventListener("click", () => editGame(Number(button.dataset.edit)));
+  });
+
+  $("adminGames").querySelectorAll("[data-delete]").forEach(button => {
+    button.addEventListener("click", () => deleteGame(Number(button.dataset.delete)));
+  });
+}
+
+function editGame(id) {
+  const g = games.find(item => Number(item.id) === id);
+  if (!g || !isAdmin) return;
+
+  editingId = g.id;
+  $("gameName").value = g.name || "";
+  $("gameDescription").value = g.description || "";
+  $("gameImage").value = g.image_url || "";
+  $("gameUrl").value = g.game_url || "";
+  $("saveGame").textContent = "حفظ التعديلات";
+  $("gameForm").scrollIntoView({behavior:"smooth"});
+}
+
+function resetForm() {
+  editingId = null;
+  $("gameForm").reset();
+  $("saveGame").textContent = "إضافة اللعبة";
+}
+
+$("cancelEdit").addEventListener("click", resetForm);
+
+$("gameForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!db || !isAdmin) {
+    message("adminStatus","لازم تدخل بحساب المدير أولاً.");
+    return;
+  }
+
   const record = {
     name:$("gameName").value.trim(),
     description:$("gameDescription").value.trim(),
     image_url:$("gameImage").value.trim(),
     game_url:$("gameUrl").value.trim()
   };
-  $("adminStatus").textContent = "جاري الحفظ...";
-  let result;
-  if(editingId !== null) {
-    result = await db.from("games").update(record).eq("id",editingId);
-  } else {
-    result = await db.from("games").insert(record);
-  }
-  if(result.error) {
-    $("adminStatus").textContent = "ما نجحش الحفظ؛ راجع صلاحيات قاعدة البيانات.";
+
+  if (!record.name) {
+    message("adminStatus","اكتب اسم اللعبة.");
     return;
   }
+
+  message("adminStatus","جاري الحفظ...");
+  const result = editingId !== null
+    ? await db.from("games").update(record).eq("id",editingId)
+    : await db.from("games").insert(record);
+
+  if (result.error) {
+    message("adminStatus","فشل الحفظ. راجع سياسات الصلاحيات في Supabase.");
+    return;
+  }
+
   resetForm();
-  $("adminStatus").textContent = "تحفظت العملية بنجاح.";
+  message("adminStatus","تحفظت العملية بنجاح.");
   await loadGames();
 });
 
-function editGame(id) {
-  const g = games.find(item => Number(item.id) === Number(id));
-  if(!g || !isAdmin) return;
-  editingId = g.id;
-  $("gameName").value = g.name || "";
-  $("gameDescription").value = g.description || "";
-  $("gameImage").value = g.image_url || "";
-  $("gameUrl").value = g.game_url || "";
-  $("saveButton").textContent = "حفظ التعديلات";
-  $("gameForm").scrollIntoView({behavior:"smooth"});
-}
 async function deleteGame(id) {
-  if(!isAdmin || !confirm("متأكد بلي حاب تحذف هذي اللعبة؟")) return;
+  if (!db || !isAdmin) return;
+  if (!confirm("متأكد بلي حاب تحذف هذي اللعبة؟")) return;
+
   const {error} = await db.from("games").delete().eq("id",id);
-  if(error) {
-    $("adminStatus").textContent = "ما نجحش الحذف؛ راجع الصلاحيات.";
+  if (error) {
+    message("adminStatus","فشل الحذف. راجع الصلاحيات.");
     return;
   }
-  $("adminStatus").textContent = "تم الحذف.";
+
+  message("adminStatus","تم حذف اللعبة.");
   await loadGames();
-}
-function resetForm() {
-  editingId = null;
-  $("gameForm").reset();
-  $("saveButton").textContent = "إضافة اللعبة";
-}
-async function logout() {
-  if(db) await db.auth.signOut();
-  isAdmin = false;
-  $("admin").style.display = "none";
-  $("loginStatus").textContent = "خرجت من الحساب.";
-  resetForm();
 }
 
+$("logoutButton").addEventListener("click", async () => {
+  if (db) await db.auth.signOut();
+  isAdmin = false;
+  $("adminPanel").style.display = "none";
+  resetForm();
+  message("loginStatus","تم تسجيل الخروج.");
+});
+
 async function start() {
-  if(!window.supabase) {
-    $("status").textContent = "تعذّر تحميل مكتبة الاتصال.";
-    return;
-  
-  if(SUPABASE_KEY === "PASTE_YOUR_PUsb_publishable_ercDvOd_Yc8VZEgrgP-71g_0kHylm9BBLISHABLE_KEY_HERE") {
-    $("status").textContent = "لازم تحط مفتاح Publishable تاع Supabase في الكود.";
+  if (!window.supabase) {
+    message("publicStatus","مكتبة الاتصال لم تتحمّل. تأكد من الإنترنت.");
     return;
   }
+
+  if (SUPABASE_KEY === "sb_publishable_ercDvOd_Yc8VZEgrgP-71g_0kHylm9B") {
+    message("publicStatus","لازم تحط مفتاح Publishable تاع Supabase.");
+    return;
+  }
+
   db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
   await loadGames();
   await checkAdmin();
+
   db.auth.onAuthStateChange(() => {
     setTimeout(checkAdmin,0);
   });
 }
+
 start();
 </script>
 </body>
