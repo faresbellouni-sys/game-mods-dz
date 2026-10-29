@@ -1,85 +1,379 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GAME MODS DZ</title>
+<meta name="theme-color" content="#0b0714">
+<title>GAME MODS DZ | ألعاب وروابط رسمية</title>
 <style>
+:root{--bg:#0b0714;--card:#171126;--purple:#a855f7;--text:#f5f3ff;--muted:#c4b5fd}
 *{box-sizing:border-box}
-body{margin:0;background:#090611;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:30px 15px;background:linear-gradient(135deg,#170b2e,#421080);border-bottom:2px solid #b44aff}
-h1{color:#d7a1ff;text-shadow:0 0 15px #a020f0;margin:0 0 10px}
-header p{color:#e6d7f7}
-main{max-width:900px;margin:auto;padding:18px}
-input{width:100%;padding:14px;border:1px solid #a64dff;border-radius:12px;background:#160d24;color:white;font-size:16px;margin-bottom:20px}
-.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
-.game{background:#171020;border:1px solid #7030a0;border-radius:14px;padding:18px 12px;text-align:center;box-shadow:0 0 10px #3d1260}
-.cover{font-size:42px;margin:8px}
-.game h2{font-size:18px}
-.game p{font-size:13px;color:#d2c4e2;min-height:32px}
-.game a{display:block;text-decoration:none;text-align:center;background:#8d32df;color:white;padding:11px;border-radius:9px;font-weight:bold}
-.notice{margin-top:25px;padding:15px;border:1px solid #63328a;border-radius:12px;color:#d8c9e9;font-size:13px;line-height:1.8}
-footer{text-align:center;padding:25px;color:#a89bb9;background:#0b0614;border-top:1px solid #8b5cf6;margin-top:20px}
-footer p{margin:9px 0}
-footer a{color:#c4b5fd;text-decoration:none}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{text-align:center;padding:36px 16px;background:linear-gradient(135deg,#170b2c,#271047,#0b0714);border-bottom:1px solid #7139a8}
+header h1{margin:0;color:#d8b4fe;font-size:clamp(28px,7vw,44px);text-shadow:0 0 18px #a855f7}
+header p{color:var(--muted);line-height:1.8}
+main{max-width:1100px;margin:auto;padding:20px}
+.notice{padding:14px;border:1px solid #7139a8;border-radius:12px;background:#160e25;line-height:1.8}
+.search{width:100%;padding:14px;margin:20px 0;background:#171126;color:white;border:1px solid #8b5cf6;border-radius:10px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid #382052;border-radius:14px;padding:18px;transition:.2s;overflow-wrap:anywhere}
+.card:hover{border-color:var(--purple);box-shadow:0 0 16px #a855f733}
+.card h2{color:#d8b4fe;font-size:21px}
+.card p{color:#ddd6fe;line-height:1.7}
+.link{display:inline-block;padding:10px 14px;background:#7e22ce;color:white;text-decoration:none;border-radius:8px;margin-top:8px}
+.link:hover{background:#9333ea}
+.empty{color:var(--muted);text-align:center;padding:24px}
+footer{text-align:center;margin-top:35px;padding:25px 12px;border-top:1px solid #382052;color:#c4b5fd;line-height:2}
+footer a{color:#d8b4fe}
+.admin{margin:35px auto 10px;max-width:700px;padding:18px;background:#15101f;border:1px solid #8b5cf6;border-radius:14px}
+.admin h2,.admin h3{color:#d8b4fe}
+.field{display:block;width:100%;padding:12px;margin:10px 0;background:#0b0714;color:white;border:1px solid #594078;border-radius:8px}
+.btn{padding:11px 16px;border:0;border-radius:8px;background:#8b5cf6;color:white;cursor:pointer;margin:5px 3px}
+.btn:hover{background:#a855f7}
+.danger{background:#b91c1c}
+.status{overflow-wrap:anywhere;line-height:1.7;color:#ddd6fe}
+.game-row{padding:12px;margin:10px 0;background:#211832;border-radius:9px;overflow-wrap:anywhere}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 <header>
-<h1>🎮 GAME MODS DZ</h1>
-<p>عالم الألعاب، التحديثات والأدلة في مكان واحد</p>
+  <h1>🎮 GAME MODS DZ</h1>
+  <p>اكتشف ألعابك المفضلة وروابطها الرسمية في مكان واحد.</p>
 </header>
+
 <main>
-<input id="search" placeholder="🔎 قلب على لعبة..." oninput="filterGames()">
-<div class="games" id="games">
-<article class="game" data-name="pubg ببجي">
-<div class="cover">🎯</div><h2>PUBG Mobile</h2>
-<p>أخبار وتحديثات وأدلة اللعبة</p>
-<a href="https://www.pubgmobile.com/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
-</article>
-<article class="game" data-name="minecraft ماينكرافت">
-<div class="cover">🧱</div><h2>Minecraft</h2>
-<p>اكتشف عالم البناء والمغامرة</p>
-<a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
-</article>
-<article class="game" data-name="gta grand theft auto">
-<div class="cover">🚘</div><h2>GTA V</h2>
-<p>معلومات وأخبار اللعبة</p>
-<a href="https://www.rockstargames.com/" target="_blank" rel="noopener noreferrer">Rockstar Games</a>
-</article>
-<article class="game" data-name="roblox روبلوكس">
-<div class="cover">🕹️</div><h2>Roblox</h2>
-<p>ألعاب وتجارب متنوعة</p>
-<a href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
-</article>
-<article class="game" data-name="efootball كرة القدم">
-<div class="cover">⚽</div><h2>eFootball</h2>
-<p>أخبار كرة القدم وتحديثات اللعبة</p>
-<a href="https://www.konami.com/efootball/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
-</article>
-<article class="game" data-name="cs2 counter strike">
-<div class="cover">💥</div><h2>Counter-Strike 2</h2>
-<p>أخبار وتفاصيل اللعبة</p>
-<a href="https://www.counter-strike.net/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
-</article>
-</div>
-<div class="notice">
-<strong>ملاحظة:</strong> هذا الموقع يقدم معلومات وروابط رسمية للألعاب. تحقق دائمًا من مصدر الملفات قبل تنزيلها، وتجنب الملفات المجهولة التي قد تضر بجهازك أو بحسابك.
-</div>
+  <div class="notice">
+    مرحباً بيك في <strong>GAME MODS DZ</strong>! ابحث على لعبتك واكتشف معلوماتها.
+    استعمل الروابط الرسمية، وتجنّب الملفات المجهولة.
+  </div>
+
+  <input id="search" class="search" type="search" placeholder="🔎 ابحث عن لعبة..." aria-label="البحث عن لعبة">
+
+  <section id="games" class="grid" aria-live="polite">
+    <article class="card" data-name="pubg mobile">
+      <h2>PUBG Mobile</h2>
+      <p>لعبة باتل رويال وتحديات جماعية.</p>
+      <a class="link" href="https://www.pubgmobile.com/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
+    </article>
+    <article class="card" data-name="minecraft">
+      <h2>Minecraft</h2>
+      <p>استكشف العوالم وابنِ إبداعاتك.</p>
+      <a class="link" href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
+    </article>
+    <article class="card" data-name="gta v grand theft auto">
+      <h2>GTA V</h2>
+      <p>عالم مفتوح ومغامرات من سلسلة Grand Theft Auto.</p>
+      <a class="link" href="https://www.rockstargames.com/" target="_blank" rel="noopener noreferrer">موقع Rockstar</a>
+    </article>
+    <article class="card" data-name="roblox">
+      <h2>Roblox</h2>
+      <p>اكتشف تجارب وألعاب من صنع اللاعبين.</p>
+      <a class="link" href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
+    </article>
+    <article class="card" data-name="efootball">
+      <h2>eFootball</h2>
+      <p>كرة القدم والمنافسة مع لاعبين آخرين.</p>
+      <a class="link" href="https://www.konami.com/efootball/" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
+    </article>
+    <article class="card" data-name="cs2 counter strike 2">
+      <h2>Counter-Strike 2</h2>
+      <p>لعبة تصويب تنافسية جماعية.</p>
+      <a class="link" href="https://www.counter-strike.net/cs2" target="_blank" rel="noopener noreferrer">الموقع الرسمي</a>
+    </article>
+  </section>
+  <p id="public-status" class="status"></p>
+
+  <section class="admin">
+    <h2>🔐 لوحة إدارة GAME MODS DZ</h2>
+    <p>الدخول مخصص لحساب الإدارة فقط.</p>
+
+    <form id="login-form">
+      <input id="email" class="field" type="email" placeholder="البريد الإلكتروني" autocomplete="username" required>
+      <input id="password" class="field" type="password" placeholder="كلمة المرور" autocomplete="current-password" required>
+      <button class="btn" type="submit">تسجيل الدخول</button>
+    </form>
+
+    <div id="admin-panel" hidden>
+      <h3>إضافة لعبة</h3>
+      <form id="add-form">
+        <input id="game-name" class="field" placeholder="اسم اللعبة" required>
+        <input id="game-description" class="field" placeholder="وصف اللعبة">
+        <input id="game-image" class="field" type="url" placeholder="رابط الصورة (اختياري)">
+        <input id="game-url" class="field" type="url" placeholder="رابط اللعبة الرسمي" required>
+        <button class="btn" type="submit">إضافة اللعبة</button>
+      </form>
+      <h3>إدارة الألعاب المضافة</h3>
+      <div id="admin-games"></div>
+      <button id="logout" class="btn" type="button">تسجيل الخروج</button>
+    </div>
+    <p id="admin-status" class="status" role="status"></p>
+  </section>
 </main>
+
 <footer>
-<p>Créé par <strong>Fares Bellouni</strong></p>
-<p>Bouira, El Hachimia</p>
-<p>Telegram : <a href="https://t.me/elhachimia" target="_blank" rel="noopener noreferrer">@elhachimia</a></p>
-<p>© 2026 GAME MODS DZ — Tous droits réservés</p>
+  <div>Créé par <strong>Fares Bellouni</strong></div>
+  <div>Bouira, El Hachimia</div>
+  <div>Telegram : <a href="https://t.me/elhachimia" target="_blank" rel="noopener noreferrer">@elhachimia</a></div>
+  <div>© 2026 GAME MODS DZ — Tous droits réservés</div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-function filterGames(){
- const q=document.getElementById('search').value.toLowerCase().trim();
- document.querySelectorAll('.game').forEach(game=>{
-  game.style.display=game.dataset.name.toLowerCase().includes(q)||game.innerText.toLowerCase().includes(q)?'':'none';
- });
-}
+(() => {
+  const PROJECT_URL = "https://tephetndomaildpphbez.supabase.co";
+  // Remplace cette valeur par ton Publishable key Supabase.
+  const PUBLISHABLE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+  const search = document.getElementById("search");
+  const gamesBox = document.getElementById("games");
+  const publicStatus = document.getElementById("public-status");
+  const loginForm = document.getElementById("login-form");
+  const panel = document.getElementById("admin-panel");
+  const adminStatus = document.getElementById("admin-status");
+  const adminGames = document.getElementById("admin-games");
+
+  function filterGames() {
+    const term = search.value.trim().toLowerCase();
+    let visible = 0;
+    gamesBox.querySelectorAll(".card").forEach(card => {
+      const matches = (card.dataset.name + " " + card.textContent).toLowerCase().includes(term);
+      card.hidden = !matches;
+      if (matches) visible++;
+    });
+    publicStatus.textContent = visible ? "" : "ما لقيناش لعبة بهذا الاسم.";
+  }
+  search.addEventListener("input", filterGames);
+
+  if (PUBLISHABLE_KEY === "PASTE_YOUR_PUBLISHABLE_KEY_HERE") {
+    adminStatus.textContent = "الموقع يخدم، لكن ربط Supabase ينتظر إضافة Publishable key.";
+    return;
+  }
+
+  const db = window.supabase.createClient(PROJECT_URL, PUBLISHABLE_KEY);
+
+  function makeLink(url, text) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.textContent = text;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.className = "link";
+    return a;
+  }
+
+  async function loadPublicGames() {
+    const { data, error } = await db.from("games")
+      .select("id,name,description,image_url,game_url")
+      .order("id", { ascending: true });
+
+    if (error) {
+      publicStatus.textContent = "تعذر تحميل الألعاب الإضافية من قاعدة البيانات.";
+      return;
+    }
+
+    data.forEach(game => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.name = game.name || "";
+
+      const title = document.createElement("h2");
+      title.textContent = game.name || "لعبة";
+      card.appendChild(title);
+
+      if (game.image_url) {
+        const image = document.createElement("img");
+        image.src = game.image_url;
+        image.alt = game.name || "صورة اللعبة";
+        image.loading = "lazy";
+        image.style.cssText = "width:100%;border-radius:8px";
+        card.appendChild(image);
+      }
+
+      const description = document.createElement("p");
+      description.textContent = game.description || "";
+      card.appendChild(description);
+
+      if (game.game_url) card.appendChild(makeLink(game.game_url, "افتح الموقع الرسمي"));
+      gamesBox.appendChild(card);
+    });
+
+    filterGames();
+  }
+
+  async function isAdmin() {
+    const { data: { user }, error: userError } = await db.auth.getUser();
+    if (userError || !user) return false;
+
+    const { data, error } = await db.rpc("is_admin");
+    if (error || data !== true) {
+      adminStatus.textContent = "هذا الحساب غير مخوّل للإدارة.";
+      return false;
+    }
+    return true;
+  }
+
+  async function refreshAdmin() {
+    if (!await isAdmin()) {
+      panel.hidden = true;
+      loginForm.hidden = false;
+      return;
+    }
+
+    loginForm.hidden = true;
+    panel.hidden = false;
+
+    const { data, error } = await db.from("games")
+      .select("id,name,description,image_url,game_url")
+      .order("id", { ascending: false });
+
+    if (error) {
+      adminStatus.textContent = "تعذر تحميل قائمة الإدارة.";
+      return;
+    }
+
+    adminGames.replaceChildren();
+
+    data.forEach(game => {
+      const row = document.createElement("div");
+      row.className = "game-row";
+
+      const title = document.createElement("strong");
+      title.textContent = game.name;
+      row.appendChild(title);
+
+      const edit = document.createElement("button");
+      edit.className = "btn";
+      edit.textContent = "تعديل";
+      edit.onclick = async () => {
+        const name = prompt("اسم اللعبة:", game.name || "");
+        if (name === null || !name.trim()) return;
+        const description = prompt("وصف اللعبة:", game.description || "");
+        if (description === null) return;
+        const image_url = prompt("رابط الصورة:", game.image_url || "");
+        if (image_url === null) return;
+        const game_url = prompt("رابط اللعبة:", game.game_url || "");
+        if (game_url === null) return;
+
+        const { error } = await db.from("games").update({
+          name: name.trim(), description, image_url, game_url
+        }).eq("id", game.id);
+
+        adminStatus.textContent = error ? "فشل التعديل." : "تم تعديل اللعبة.";
+        if (!error) {
+          gamesBox.querySelectorAll(".card[data-db-id]").forEach(el => el.remove());
+          await refreshAdmin();
+          await reloadAddedGames();
+        }
+      };
+      row.appendChild(edit);
+
+      const del = document.createElement("button");
+      del.className = "btn danger";
+      del.textContent = "حذف";
+      del.onclick = async () => {
+        if (!confirm("هل تريد حذف " + game.name + "؟")) return;
+        const { error } = await db.from("games").delete().eq("id", game.id);
+        adminStatus.textContent = error ? "فشل الحذف." : "تم حذف اللعبة.";
+        if (!error) {
+          await refreshAdmin();
+          await reloadAddedGames();
+        }
+      };
+      row.appendChild(del);
+      adminGames.appendChild(row);
+    });
+  }
+
+  async function reloadAddedGames() {
+    gamesBox.querySelectorAll(".database-card").forEach(el => el.remove());
+
+    const { data, error } = await db.from("games")
+      .select("id,name,description,image_url,game_url")
+      .order("id", { ascending: true });
+
+    if (error) return;
+
+    data.forEach(game => {
+      const card = document.createElement("article");
+      card.className = "card database-card";
+      card.dataset.name = game.name || "";
+
+      const title = document.createElement("h2");
+      title.textContent = game.name || "لعبة";
+      card.appendChild(title);
+
+      if (game.image_url) {
+        const img = document.createElement("img");
+        img.src = game.image_url;
+        img.alt = game.name || "صورة اللعبة";
+        img.loading = "lazy";
+        img.style.cssText = "width:100%;border-radius:8px";
+        card.appendChild(img);
+      }
+
+      const description = document.createElement("p");
+      description.textContent = game.description || "";
+      card.appendChild(description);
+
+      if (game.game_url) card.appendChild(makeLink(game.game_url, "افتح الموقع الرسمي"));
+      gamesBox.appendChild(card);
+    });
+    filterGames();
+  }
+
+  loginForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    adminStatus.textContent = "جارٍ تسجيل الدخول...";
+    const { error } = await db.auth.signInWithPassword({
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+    });
+    if (error) {
+      adminStatus.textContent = "تعذر تسجيل الدخول. راجع بيانات الحساب.";
+      return;
+    }
+    await refreshAdmin();
+  });
+
+  document.getElementById("add-form").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!await isAdmin()) {
+      adminStatus.textContent = "لا توجد صلاحية الإدارة.";
+      return;
+    }
+
+    const game = {
+      name: document.getElementById("game-name").value.trim(),
+      description: document.getElementById("game-description").value.trim(),
+      image_url: document.getElementById("game-image").value.trim(),
+      game_url: document.getElementById("game-url").value.trim()
+    };
+
+    const { error } = await db.from("games").insert(game);
+    if (error) {
+      adminStatus.textContent = "فشلت الإضافة. تحقق من البيانات والصلاحيات.";
+      return;
+    }
+
+    event.target.reset();
+    adminStatus.textContent = "تمت إضافة اللعبة بنجاح.";
+    await refreshAdmin();
+    await reloadAddedGames();
+  });
+
+  document.getElementById("logout").addEventListener("click", async () => {
+    await db.auth.signOut();
+    panel.hidden = true;
+    loginForm.hidden = false;
+    adminStatus.textContent = "تم تسجيل الخروج.";
+  });
+
+  loadPublicGames();
+  reloadAddedGames();
+  refreshAdmin();
+})();
 </script>
 </body>
 </html>
